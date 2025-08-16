@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guess the Word by Emoji</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(120deg, #ffecd2, #fcb69f);
+      margin: 0;
+      padding: 0;
+    }
+
+    .game-box {
+      width: 90%;
+      max-width: 600px;
+      background: white;
+      padding: 30px;
+      margin: 50px auto;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .emoji {
+      font-size: 100px;
+      margin: 20px;
+    }
+
+    .answer {
+      font-size: 24px;
+      margin: 20px 0;
+    }
+
+    .option {
+      display: block;
+      padding: 12px;
+      margin: 10px 0;
+      background-color: #f1f1f1;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s ease;
+    }
+
+    .option:hover {
+      background-color: #ddd;
+    }
+
+    .correct {
+      background-color: #4CAF50 !important;
+      color: white;
+    }
+
+    .incorrect {
+      background-color: #f44336 !important;
+      color: white;
+    }
+
+    #popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    #popup.show {
+      opacity: 1;
+    }
+
+    #popup .content {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+    }
+
+    #popup h2 {
+      margin-bottom: 20px;
+    }
+
+    .btn-home {
+      background: #28a745;
+      color: white;
+    }
+
+    .btn-retry {
+      background: #007bff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div class="game-box">
+  <div id="emoji" class="emoji">🦁🍔</div>
+  <div id="options" class="answer">
+
+  </div>
+</div>
+
+<div id="popup">
+  <div class="content">
+    <h2>🎉 Game Finished!</h2>
+    <p id="scoreText"></p>
+    <button class="btn btn-retry" onclick="startGame()">Retry</button>
+    <button class="btn btn-home" onclick="location.href='index.html'">Home</button>
+  </div>
+</div>
+<script>
+  const emojiCombinations = [
+    { emojis: "🍔🦁", answer: "BurgerKing", options: ["Lion Burger", "Lion King", "BurgerKing", "Tiger Burger"] },
+    { emojis: "🐱🐟", answer: "Catfish", options: ["Catfish", "Cat Dog", "Fish Cat", "Fishbone"] },
+    { emojis: "🎄🍎", answer: "Pineapple", options: ["Pineapple", "christmasapple", "Orange", "treeapple"] },
+    { emojis: "🌞✨", answer: "Sunshine", options: ["Sunshine", "Rain", "Storm", "Sunset"] },
+    { emojis: "🌧️🎀", answer: "Rainbow", options: ["Raining", "Duckling", "Rainbow", "RainGirl"] },
+    { emojis: "🍫🥛", answer: "Chocolate Milk", options: ["Chocolate Milk", "Milkshake", "Chocolate", "Milk"] }
+  ];
+
+  let currentIndex = 0;
+  let score = 0;
+
+  // Start the game
+  function startGame() {
+    score = 0;
+    currentIndex = 0;
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("popup").classList.remove("show");
+    showEmojiCombination();
+  }
+
+  //  current emoji 
+  function showEmojiCombination() {
+    const combo = emojiCombinations[currentIndex];
+    document.getElementById("emoji").innerText = combo.emojis;
+
+    // Create options dynamically
+    const optionsDiv = document.getElementById("options");
+    optionsDiv.innerHTML = "";
+    combo.options.forEach(option => {
+      const button = document.createElement("button");
+      button.className = "option";
+      button.innerText = option;
+      button.onclick = () => checkAnswer(option, combo.answer, button);
+      optionsDiv.appendChild(button);
+    });
+  }
+
+  // Check the answer
+  function checkAnswer(selectedOption, correctAnswer, button) {
+    const allButtons = document.querySelectorAll(".option");
+    allButtons.forEach(btn => btn.disabled = true);
+
+    if (selectedOption === correctAnswer) {
+      button.classList.add("correct");
+      score++;
+    } else {
+      button.classList.add("incorrect");
+    }
+
+    // nxt ques
+    setTimeout(() => {
+      currentIndex++;
+      if (currentIndex < emojiCombinations.length) {
+        showEmojiCombination();
+      } else {
+        showPopup();
+      }
+    }, 1000);
+  }
+
+  // score
+  function showPopup() {
+    document.getElementById("scoreText").innerText = `You scored ${score} out of ${emojiCombinations.length}`;
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("popup").classList.add("show");
+  }
+
+  // Start 
+  window.onload = startGame;
+</script>
+
+</body>
+</html>

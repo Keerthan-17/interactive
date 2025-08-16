@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Games</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffe3e3, #ffd6f6);
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 90vh;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 1s ease-out;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #ff4081;
+      margin-bottom: 10px;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #444;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .btn-section {
+      margin-top: 30px;
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    .game-card {
+      text-align: center;
+      border-radius: 20px;
+      background: white;
+      padding: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      width: 200px;
+      animation: popIn 0.8s ease-out;
+    }
+
+    .game-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    .game-card img {
+      width: 100%;
+      border-radius: 15px;
+      margin-bottom: 10px;
+      transition: transform 0.3s;
+      animation: popIn 0.8s ease-out;
+    }
+
+    .game-card:hover img {
+      transform: scale(1.05) rotate(2deg);
+    }
+
+    .btn-section .btn {
+      padding: 10px 20px;
+      border-radius: 30px;
+      background: linear-gradient(90deg, #ff8a00, #e52e71);
+      color: white;
+      font-size: 16px;
+      transition: transform 0.3s ease, box-shadow 0.3s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .btn-section .btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Select a Game to Play</h1>
+  <p>Choose your adventure:</p>
+  <div class="btn-section">
+
+    <!--games -->
+    <div class="game-card">
+      <img src="c:\Users\SANDEEP\Downloads\interactive\mem.png" alt="Memory Game" />
+      <a href="memory.html" class="btn">Memory Game</a>
+    </div>
+
+    <div class="game-card">
+      <img src="c:\Users\SANDEEP\Downloads\interactive\emo.png" alt="Guess the Emoji" />
+      <a href="emoji_game.html" class="btn">Guess the Emoji</a>
+    </div>
+
+    <div class="game-card">
+      <img src="c:\Users\SANDEEP\Downloads\interactive\draw.png" alt="Drawing Game" />
+      <a href="drawing_game.html" class="btn">Drawing Game</a>
+    </div>
+
+  </div>
+</div>
+
+
+</body>
+</html>
